@@ -1,6 +1,8 @@
 # libavinc
 libav* Modern C++ API
 
+NOTE: this is an experment to explore using some modern C++ techniques in libav API, You probablly should not use it for anything other than that
+
 libavinc is an experiment in using some modern c++ (c++11) features
 with the libav* libraries from the ffmpeg project. libavinc's goal
 is not to replace or wrap the av* functions in c++ code, but to
