@@ -37,7 +37,7 @@ inline int64_t av_rescale(flicks time, ::AVRational scale)
 }
 ///////////////////////////////////////////////////////////////////////////////
 using AVDictionary = std::multimap<std::string, std::string>;
-::AVDictionary* av_dictionary(const AVDictionary& dict)
+inline ::AVDictionary* av_dictionary(const AVDictionary& dict)
 {
     ::AVDictionary* d = nullptr;
     for (const auto& entry : dict) {
@@ -46,7 +46,7 @@ using AVDictionary = std::multimap<std::string, std::string>;
     return d;
 }
 
-AVDictionary av_dictionary(const ::AVDictionary* dict)
+inline AVDictionary av_dictionary(const ::AVDictionary* dict)
 {
     AVDictionary d;
     AVDictionaryEntry* entry = nullptr;
@@ -56,7 +56,7 @@ AVDictionary av_dictionary(const ::AVDictionary* dict)
     return d;
 }
 
-void av_dict_free(::AVDictionary* d)
+inline void av_dict_free(::AVDictionary* d)
 {
     if (d) {
         av_dict_free(&d);
@@ -107,7 +107,7 @@ inline AVIOContext avio_alloc_context(std::function<int(uint8_t*, int)> read,
         read, [](uint8_t*, int) { return 0; }, seek, 0, buffer_size);
 }
 ///////////////////////////////////////////////////////////////////////////////
-int av_read_frame(::AVFormatContext* ctx, ::AVPacket* pkt)
+inline int av_read_frame(::AVFormatContext* ctx, ::AVPacket* pkt)
 {
     if (!ctx || !pkt) {
         return AVERROR(1);
