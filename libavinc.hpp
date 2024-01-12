@@ -327,28 +327,26 @@ inline int av_open_best_streams(AVFormatContext& fmtCtx)
     return fmtCtx.open_streams.size();
 }
 
-inline AVCodecContext& find_open_audio_stream(AVFormatContext& fmtCtx)
+inline ::AVCodecContext* find_open_audio_stream(AVFormatContext& fmtCtx)
 {
     for (auto& stream : fmtCtx.open_streams) {
         if (stream.second->codec_type == AVMEDIA_TYPE_AUDIO) {
-            return stream.second;
+            return stream.second.get();
         }
     }
 
-    static auto err = AVCodecContext(nullptr, [](::AVCodecContext*) {});
-    return err;
+    return nullptr;
 }
 
-inline AVCodecContext& find_open_video_stream(AVFormatContext& fmtCtx)
+inline ::AVCodecContext* find_open_video_stream(AVFormatContext& fmtCtx)
 {
     for (auto& stream : fmtCtx.open_streams) {
         if (stream.second->codec_type == AVMEDIA_TYPE_VIDEO) {
-            return stream.second;
+            return stream.second.get();
         }
     }
 
-    static auto err = AVCodecContext(nullptr, [](::AVCodecContext*) {});
-    return err;
+    return nullptr;
 }
 
 inline int avcodec_send_packet(AVFormatContext& fmtCtx, const ::AVPacket* pkt,
