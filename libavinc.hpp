@@ -298,7 +298,11 @@ inline AVFrame av_frame_clone(const AVFrame& frame)
 inline int av_open_best_stream(AVFormatContext& fmtCtx, AVMediaType type, int related_stream = -1)
 {
     int idx = -1;
+    #if LIBAVFORMAT_VERSION_MAJOR >= 60
+    const ::AVCodec* codec = nullptr;
+    #else
     ::AVCodec* codec = nullptr;
+    #endif
     if ((idx = ::av_find_best_stream(fmtCtx.get(), type, -1, related_stream, &codec, 0)) < 0) {
         return -1;
     }
